@@ -69,4 +69,7 @@ export class AnimalAdoptarComponent implements OnInit {
             );
         });
     }
+    favorito(){
+        alert("intereses");
+    }
 }

@@ -14,6 +14,7 @@ import { AnimalDetailComponent } from './components/animal.detail.component';
 import { AnimalEditComponent } from './components/animal.edit.component';
 import { AnimalAdoptarComponent } from './components/animal.adoptar.component';
 import { UserInteresesComponent } from './components/user.intereses.component';
+import { UserInteresesMenuComponent } from './components/user.interesesMenu.component';
 
 const routes: Routes = [
     { path: '', component: InicioComponent },
@@ -35,6 +36,7 @@ const routes: Routes = [
     { path: 'user/animal-adoptar/:id', component: AnimalAdoptarComponent },
     { path: 'user/index/:page/animal-adoptar/:id', component: AnimalAdoptarComponent },
     { path: 'userIntereses', component: UserInteresesComponent },
+    { path: 'userInteresesMenu', component: UserInteresesMenuComponent },
     { path: '**', component: InicioComponent }
 ];
 

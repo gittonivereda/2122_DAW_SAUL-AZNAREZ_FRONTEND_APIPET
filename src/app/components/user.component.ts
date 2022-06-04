@@ -41,6 +41,7 @@ export class UserComponent implements OnInit {
         console.log("Login cargado");
         this.redirectIfIdentity();
         this.getAnimales();
+        this.Intereses()
         //this.todosAnimales()
     }
 
@@ -96,7 +97,7 @@ export class UserComponent implements OnInit {
         });
     }
 
-    search() {
+    search(tipo = "", provincia = "") {
 
         if (this.searchString == "" || this.searchString == null || this.searchString == undefined) {
             this.searchString = "vacio";
@@ -145,12 +146,39 @@ export class UserComponent implements OnInit {
                         } else {
                             this.pageNext = page;
                         }
+                }else if(this.status.msg == "No hay animales"){
+                    this.loading = "hide";
+                    this.status = "No hay animales";
+                }else{
+                    this.loading = "hide";
+                    this.status = "error";
                 }
             }, error => {
                 console.log(<any>error);
             }
             );
         });
+    }
+
+    Intereses() {
+        this.loading = "show";
+
+            this._userService.getIntereses(this.identity.email).subscribe(
+                response => {
+                    this.status = response;
+                    if(this.status.status == "success"){
+                        this.tipo = this.status.data.tipo;
+                        this.provincia = this.status.data.provincia;
+                        this.search(this.tipo, this.provincia);
+                    }
+                    this.loading = "hide";
+                },
+                error => {
+                    this.status = "error";
+                    this.loading = "hide";
+                    console.log(<any>error);
+                }
+            ); 
     }
 
     // todosAnimales() {

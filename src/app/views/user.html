@@ -6,9 +6,9 @@
         <ul class="navbar-nav">
             <li class="nav-item active"><a class="nav-link" href="/user">Home<span class="sr-only">(current)</span></a></li>
             <li class="nav-item"><a class="nav-link" href="#">Favoritos</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Intereses</a></li>
             <li class="nav-item"><a class="nav-link" href="/animal-new">Dar en adopción</a></li>
             <li class="nav-item"><a class="nav-link" href="animalesUser">Mis animales</a></li>
+            <li class="nav-item"><a class="nav-link" href="/userInteresesMenu">Mis intereses</a></li>
             <li class="nav-item"><a class="nav-link" href="/user-edit">Editar perfil</a></li>
             <li class="nav-item"><a class="nav-link" href="/login/1">Salir</a></li>
         </ul>
@@ -24,8 +24,16 @@
     <div class="animales">
 
         <div class="alert alert-danger" role="alert" *ngIf="animales && animales.length == 0">
-            <strong>No tenemos mas animales para dar en adopción</strong>
+            <strong>No tenemos más animales para dar en adopción.</strong>
             <a href="/animal-new" class="btn btn-primary">Dar en adopción</a>
+        </div>
+
+        <div class="alert alert-danger" role="alert" *ngIf="status == 'No hay animales'">
+            <strong>No tenemos animales con ese criterio de búsqueda.</strong>
+        </div>
+
+        <div class="alert alert-danger" role="alert" *ngIf="status == 'error'">
+            <strong>¡ Error en la búsqueda !</strong>
         </div>
 
         <form class="col-md-12" role="search">

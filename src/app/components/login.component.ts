@@ -83,8 +83,8 @@ export class LoginComponent implements OnInit {
                                 }else{
                                     if(!this.identity.status){
                                         localStorage.setItem("token", JSON.stringify(this.token));
-                                        //Redireccion a user
-                                        this._router.navigate(["/user"]);
+                                        //Redireccion a userIntereses
+                                        this._router.navigate(["/userIntereses"]);
                                     }
                                 }
                             },

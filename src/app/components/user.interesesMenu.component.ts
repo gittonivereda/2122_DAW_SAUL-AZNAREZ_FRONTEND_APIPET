@@ -9,7 +9,7 @@ import { AnimalService } from "../services/animal.services";
     providers: [UserService, AnimalService]
 })
 
-export class UserInteresesComponent implements OnInit {
+export class UserInteresesMenuComponent implements OnInit {
     public title: string;
     public token: any;
     public identity: any;
@@ -34,75 +34,10 @@ export class UserInteresesComponent implements OnInit {
     ngOnInit() {
         console.log("Intereses cargado");
         this.redirectIfIdentity();
-        this.redirectIfIntereses();
 
     }
 
-    redirectIfIdentity() {
-        let identity = this._userService.getIdentity();
-
-        if (identity == null || !identity.sub || identity == null) {
-            this._router.navigate(["/login"]);
-        }
-    }
-
-    redirectIfIntereses() {
-        this.loading = "show";
-
-            this._userService.getIntereses(this.identity.email).subscribe(
-                response => {
-                    this.status = response;
-                    if(this.status.status == "success"){
-                        this.tipo = this.status.data.tipo;
-                        this.provincia = this.status.data.provincia;
-                        //Redireccion a user
-                        this._router.navigate(["/user"]);
-                    }else{
-                        if(this.status.msg == "No hay intereses"){
-                            this.status = "No hay intereses"
-                        }else{
-                            this.status = "error";
-                        }
-                        
-                    }
-                    this.loading = "hide";
-                },
-                error => {
-                    this.status = "error";
-                    this.loading = "hide";
-                    console.log(<any>error);
-                }
-            ); 
-    }
-
-    enviarIntereses() {
-        this.loading = "show";
-        if(this.tipo == "" && this.provincia == "" || this.tipo == null && this.provincia == null){
-            this.status = "error, elige un tipo o una provincia";
-            console.log(this.status);
-            this.loading = "hide";
-        }else{
-            this._userService.newIntereses(this.tipo, this.provincia).subscribe(
-                response => {
-                    this.status = response;
-                    if(this.status.status == "success"){
-                        this.status = "Intereses actualizados";
-                        this.loading = "hide";
-                        //Redireccion a user
-                        this._router.navigate(["/user"]);
-                    } 
-                    this.loading = "hide";
-                },
-                error => {
-                    this.status = "error";
-                    this.loading = "hide";
-                    console.log(<any>error);
-                }
-            );
-        }
-    }
-
-     eliminarIntereses() {
+    eliminarIntereses() {
         this.loading = "show";
         this._userService.eliminarIntereses(this.identity.email).subscribe(
             response => {
@@ -123,5 +58,41 @@ export class UserInteresesComponent implements OnInit {
                 console.log(<any>error);
             }
         );
+    }
+
+    redirectIfIdentity() {
+        let identity = this._userService.getIdentity();
+
+        if (identity == null || !identity.sub || identity == null) {
+            this._router.navigate(["/login"]);
+        }
+    }
+
+    enviarIntereses() {
+        this.loading = "show";
+        if(this.tipo == "" && this.provincia == "" || this.tipo == null && this.provincia == null){
+            this.status = "error, elige un tipo o una provincia";
+            console.log(this.status);
+            this.loading = "hide";
+        }else{
+            this._userService.newIntereses(this.tipo, this.provincia).subscribe(
+                response => {
+                    this.status = response;
+                    if(this.status.status == "success"){
+                        this.status = "Intereses actualizados";
+                        this.loading = "hide";
+                        //Redireccion a user
+                        this._router.navigate(["/user"]);
+                    }
+                        this.loading = "hide";
+                    
+                },
+                error => {
+                    this.status = "error";
+                    this.loading = "hide";
+                    console.log(<any>error);
+                }
+            );
+        }
     }
 }

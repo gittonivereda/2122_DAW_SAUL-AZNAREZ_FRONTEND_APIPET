@@ -20,6 +20,7 @@ import { AnimalEditComponent } from './components/animal.edit.component';
 import { UserComponent } from './components/user.component';
 import { AnimalAdoptarComponent } from './components/animal.adoptar.component';
 import {UserInteresesComponent} from './components/user.intereses.component';
+import {UserInteresesMenuComponent} from './components/user.interesesMenu.component';
 
 //import { routing, appRoutingProviders } from './app-routing.module';
 
@@ -36,7 +37,8 @@ import {UserInteresesComponent} from './components/user.intereses.component';
     AnimalEditComponent,
     UserComponent,
     AnimalAdoptarComponent,
-    UserInteresesComponent
+    UserInteresesComponent,
+    UserInteresesMenuComponent
   ],
   imports: [
     BrowserModule,

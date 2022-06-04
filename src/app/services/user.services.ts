@@ -78,4 +78,31 @@ console.log(params);
         return this.http.post(this.url + '/user/get/' + email, params, {headers: headers})
             .pipe(map(res => res));
     }
+
+    //Obtenemos los intereses del usuario
+    getIntereses(email:any) {
+        let params = "authorization=" + this.getToken();
+        let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+
+        return this.http.post(this.url + '/user/getIntereses/' + email, params, {headers: headers})
+            .pipe(map(res => res));
+    }
+
+    //Añadir los intereses del usuario
+    newIntereses(tipo:any, provincia:any) {
+        let json = JSON.stringify({tipo:tipo, provincia:provincia});
+        let params = "json=" + json + "&authorization=" + this.getToken();
+
+        let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+
+        return this.http.post(this.url + '/user/newIntereses', params, {headers: headers})
+            .pipe(map(res => res));
+    }
+    eliminarIntereses(emailUser:any){
+        let params = "authorization=" + this.getToken();
+        let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+
+        return this.http.post(this.url + '/user/eliminarIntereses/' + emailUser, params, {headers: headers})
+            .pipe(map(res => res));
+    }
 }

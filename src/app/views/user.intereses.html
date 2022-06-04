@@ -1,0 +1,136 @@
+<link href="/assets/css/user.intereses.css" rel="stylesheet">
+
+<div class="alert alert-danger" *ngIf="status == 'error'">
+    ¡Error, no se ha podido crear los intereses !
+</div>
+
+<div class="alert alert-danger" *ngIf="status == 'error, elige un tipo o una provincia'">
+    ¡Error, tiene que elegir una de las dos opciones o cancelar si no desea intereses !
+</div>
+
+<div class="alert alert-success" *ngIf="status == 'Intereses eliminados'">
+    Se han eliminado los intereses correctamente.
+</div>
+
+<div class="alert alert-danger" *ngIf="status == 'No tienes intereses'">
+    No tienes intereses para eliminar.
+</div>
+
+<div id="container">
+
+    <div class="product-details">
+        <h1>{{title}}</h1>
+
+        <div class="group">
+            <p class="information">Selecciona la provincia del animal</p>
+            <select class="form-control" id="exampleFormControlSelect1" name="provincia" class="input" [(ngModel)]="provincia" required aria-describedby="helpId">
+                    <option value="">Elige Provincia</option>
+                    <option value="Álava/Araba">Álava/Araba</option>
+                    <option value="Albacete">Albacete</option>
+                    <option value="Alicante">Alicante</option>
+                    <option value="Almería">Almería</option>
+                    <option value="Asturias">Asturias</option>
+                    <option value="Ávila">Ávila</option>
+                    <option value="Badajoz">Badajoz</option>
+                    <option value="Baleares">Baleares</option>
+                    <option value="Barcelona">Barcelona</option>
+                    <option value="Burgos">Burgos</option>
+                    <option value="Cáceres">Cáceres</option>
+                    <option value="Cádiz">Cádiz</option>
+                    <option value="Cantabria">Cantabria</option>
+                    <option value="Castellón">Castellón</option>
+                    <option value="Ceuta">Ceuta</option>
+                    <option value="Ciudad Real">Ciudad Real</option>
+                    <option value="Córdoba">Córdoba</option>
+                    <option value="Cuenca">Cuenca</option>
+                    <option value="Gerona/Girona">Gerona/Girona</option>
+                    <option value="Granada">Granada</option>
+                    <option value="Guadalajara">Guadalajara</option>
+                    <option value="Guipúzcoa/Gipuzkoa">Guipúzcoa/Gipuzkoa</option>
+                    <option value="Huelva">Huelva</option>
+                    <option value="Huesca">Huesca</option>
+                    <option value="Jaén">Jaén</option>
+                    <option value="La Coruña/A Coruña">La Coruña/A Coruña</option>
+                    <option value="La Rioja">La Rioja</option>
+                    <option value="Las Palmas">Las Palmas</option>
+                    <option value="León">León</option>
+                    <option value="Lérida/Lleida">Lérida/Lleida</option>
+                    <option value="Lugo">Lugo</option>
+                    <option value="Madrid">Madrid</option>
+                    <option value="Málaga">Málaga</option>
+                    <option value="Melilla">Melilla</option>
+                    <option value="Murcia">Murcia</option>
+                    <option value="Navarra">Navarra</option>
+                    <option value="Orense/Ourense">Orense/Ourense</option>
+                    <option value="Palencia">Palencia</option>
+                    <option value="Pontevedra">Pontevedra</option>
+                    <option value="Salamanca">Salamanca</option>
+                    <option value="Segovia">Segovia</option>
+                    <option value="Sevilla">Sevilla</option>
+                    <option value="Soria">Soria</option>
+                    <option value="Tarragona">Tarragona</option>
+                    <option value="Tenerife">Tenerife</option>
+                    <option value="Teruel">Teruel</option>
+                    <option value="Toledo">Toledo</option>
+                    <option value="Valencia">Valencia</option>
+                    <option value="Valladolid">Valladolid</option>
+                    <option value="Vizcaya/Bizkaia">Vizcaya/Bizkaia</option>
+                    <option value="Zamora">Zamora</option>
+                    <option value="Zaragoza">Zaragoza</option>
+                </select>
+        </div>
+
+        <div class="group">
+            <p class="information">Selecciona el tipo de animal</p>
+            <select class="form-control" class="input" id="exampleFormControlSelect1" name="tipo" [(ngModel)]="tipo" required aria-describedby="helpId">
+                    <option value="">Selecciona un tipo</option>
+                    <option value="Perro">Perro</option>
+                    <option value="Gato">Gato</option>
+                    <option value="Pajaro">Pajaro</option>
+                    <option value="Conejo">Conejo</option>
+                    <option value="Tortuga">Tortuga</option>
+                    <option value="Roedor">Roedor</option>
+                    <option value="Pez">Pez</option>
+                    <option value="Reptil">Reptil</option>
+                    <option value="Otro">Otro</option>
+                </select>
+        </div>
+
+
+
+        <div class="control">
+            <button class="btn" (click)="enviarIntereses()">
+                <span class="buy">Aceptar</span>
+            </button>
+            <button class="btn">
+                <span class="buy" routerLink="/user">Cancelar</span>
+            </button>
+            <button class="btn">
+                <span class="buy" (click)="eliminarIntereses()" >Eliminar</span>
+            </button>
+        </div>
+
+    </div>
+
+    <div class="product-image">
+
+        <img src="/assets/imagenes/fotoIntereses.jpg" alt="Omar Dsoky">
+
+        <!-- 	product Information-->
+        <div class="info">
+            <br>
+            <h2>Mis instereses</h2>
+            <ul>
+                <li>
+                    <h5><strong> ¿ Para que sirve ? </strong></h5>
+                </li>
+                <li>Cada vez que entres en tu home se iniciará una búsqueda automática con tus intereses guardados.</li>
+                <li>Si no quieres guardar intereses puedes pulsar cancelar.</li>
+                <li>Si quieres eliminar intereses puedes pulsar eliminar.</li>
+            </ul>
+        </div>
+    </div>
+    <!--  End product image  -->
+
+
+</div>
