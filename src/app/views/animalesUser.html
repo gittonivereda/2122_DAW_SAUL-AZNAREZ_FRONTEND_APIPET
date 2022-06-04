@@ -1,0 +1,68 @@
+<link href="/assets/css/animalesUser.css" rel="stylesheet">
+
+<div class="col-md-12">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-info ">
+        <a class="navbar-brand" href="#">Navbar</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active"><a class="nav-link" href="/user">Home<span class="sr-only">(current)</span></a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Favoritos</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Intereses</a></li>
+                <li class="nav-item"><a class="nav-link" href="/animal-new">Dar en adopción</a></li>
+                <li class="nav-item"><a class="nav-link" href="animalesUser">Mis animales</a></li>
+                <li class="nav-item"><a class="nav-link" href="/user-edit">Editar perfil</a></li>
+                <li class="nav-item"><a class="nav-link" href="/login/1">Salir</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <h1>{{title}}</h1>
+
+    <div class="col-md-12">
+        <div class="animales">
+
+            <div class="alert alert-danger" role="alert" *ngIf="animales && animales.length == 0">
+                <strong>No tiene animales para dar en adopción</strong>
+                <a href="/animal-new" class="btn btn-primary">Dar en adopción</a>
+            </div>
+
+            <div class="loader" *ngIf="loading == 'show'">
+                <img src="assets/imagenes/loader.gif" alt="">
+            </div>
+            <!--NUEVO*******************-->
+            <div id="contenedor">
+                <figure class="image-block" *ngFor="let animal of animales" class="animal-item">
+                    <img src="/assets/imagenes/foto1.webp" alt="" />
+                    <figcaption>
+                        <h3>
+                            Me llamo {{animal.nombre}}
+                        </h3>
+                        <p>¿Te gustaría saber más sobre mi?</p>
+                        <button>
+			        <a style="text-decoration:none;color:rgb(61, 62, 64);" [routerLink]="['animal-detail', animal.id]">¡Conóceme!</a>
+		        </button>
+                    </figcaption>
+                </figure>
+            </div>
+
+            <ul style="margin-left:50%" class="pagination" id="contenedorPag" *ngIf="animales && animales.length >= 1">
+                <li id="pag">
+                    <a [routerLink]="['/animalesUser/index', pagePrev]" aria-label="Previous">
+                        <img style src="/assets/imagenes/rotate.png">
+                    </a>
+                </li>
+
+                <li *ngFor="let page of pagesTotal">
+                    <a style="text-decoration:none;color:rgb(61, 62, 64);padding:5px; font-size:20px;" [routerLink]="['/animalesUser/index', page+1]">{{page+1}}</a>
+                </li>
+
+                <li id="pag">
+                    <a [routerLink]="['/animalesUser/index', pageNext]" aria-label="Next">
+                        <img src="/assets/imagenes/flecha-correcta.png">
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </div>

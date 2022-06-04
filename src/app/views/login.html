@@ -1,0 +1,37 @@
+<link href="/assets/css/login.css" rel="stylesheet">
+<h1>{{title}}</h1>
+
+<div class="identity-alert alert alert-success" *ngIf="identity && identity.sub">
+    <p>¡ Te has logeado correctamente {{identity.email}} !</p>
+</div>
+
+<div class="identity-alert alert alert-danger" *ngIf="identity && identity.msg">
+    <p>¡ error en el login !</p>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <form #loginForm="ngForm" (ngSubmit)="enviarDatos()" class="col-md-7">
+            <div class="group">
+                <input required type="email" class="form-control" class="input" name="email" id="email" #email="ngModel" [(ngModel)]="user.email" aria-describedby="helpId" required>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <span *ngIf="!email.valid && email.touched" class="text-danger">El email no es válido</span>
+                <label>Email</label>
+            </div>
+            <br>
+            <div class="group">
+                <input required type="password" class="form-control" class="input" name="password" id="password" #password="ngModel" [(ngModel)]="user.password" aria-describedby="helpId" required>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <span *ngIf="!password.valid && password.touched" class="text-danger">El password no es válido</span>
+                <label>Password</label>
+            </div>
+            <br>
+            <div class="btn-group" role="group" aria-label="">
+                <button type="submit" class="btn btn-success" [disabled]="!loginForm.form.valid">Login</button>
+                <button type="button" routerLink="/" class="btn btn-primary">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>

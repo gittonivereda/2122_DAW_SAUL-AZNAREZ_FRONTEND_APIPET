@@ -1,0 +1,43 @@
+<link href="/assets/css/animal.adoptar.css" rel="stylesheet">
+
+<div class="col-md-12">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-info ">
+        <a class="navbar-brand" href="#">Navbar</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active"><a class="nav-link" href="/user">Home<span class="sr-only">(current)</span></a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Favoritos</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Intereses</a></li>
+                <li class="nav-item"><a class="nav-link" href="/animal-new">Dar en adopción</a></li>
+                <li class="nav-item"><a class="nav-link" href="animalesUser">Mis animales</a></li>
+                <li class="nav-item"><a class="nav-link" href="/user-edit">Editar perfil</a></li>
+                <li class="nav-item"><a class="nav-link" href="/login/1">Salir</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <h1>{{title}}</h1>
+
+    <div class="loader" *ngIf="loading == 'show'">
+        <img src="assets/imagenes/loader.gif" alt="">
+    </div>
+
+
+    <div class="card">
+        <h3 class="panel-tittle">¡Hola! soy {{animal.nombre}}, ¿Quieres conocerme?</h3>
+        <img src="/assets/imagenes/logo.png" alt="">
+        <h4>Soy un {{animal.tipo}}</h4>
+        <h4>de tipo {{animal.raza}}</h4>
+        <h4 *ngIf="animal.edad < 2 else elseBlock"> y tengo {{animal.edad}} año. </h4>
+        <ng-template #elseBlock>
+            <h4>y tengo {{animal.edad}} años. </h4>
+        </ng-template>
+        <h4>Soy de tamaño {{animal.tamanio}}</h4>
+        <h5>y vivo en la provincia de {{animal.provincia}}</h5>
+        <h5>en {{animal.localidad}}.</h5>
+        <h6>Te cuento un poco sobre mi: {{animal.descripcion}}</h6>
+        <button> {{title}} </button>
+        <a href="/user"><button> Cancelar </button></a>
+
+    </div>
