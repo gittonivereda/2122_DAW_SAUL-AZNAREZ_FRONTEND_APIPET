@@ -1,0 +1,88 @@
+<link href="/assets/css/userFavoritos.css" rel="stylesheet">
+<link href="/assets/css/navbar.css" rel="stylesheet">
+
+<nav class="navbar navbar-expand-lg navbar-light ">
+    <a class="navbar-brand" href="/user"> <img id="logo" src="/assets/imagenes/logo.png" alt=""> </a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item active"><a class="nav-link" href="/user">Home<span class="sr-only">(current)</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/userFavoritos">Favoritos</a></li>
+            <li class="nav-item"><a class="nav-link" href="/animal-new">Dar en adopción</a></li>
+            <li class="nav-item"><a class="nav-link" href="animalesUser">Mis animales</a></li>
+            <li class="nav-item"><a class="nav-link" href="/userInteresesMenu">Mis intereses</a></li>
+            <li class="nav-item"><a class="nav-link" href="/user-edit">Editar perfil</a></li>
+            <li class="nav-item"><a class="nav-link" href="/login/1">Salir</a></li>
+        </ul>
+
+    </div>
+</nav>
+
+<h1><span>F</span><span>A</span><span>V</span><span>O</span>
+    <span>R</span><span>I</span><span>T</span><span>O</span>
+    <span>S</span></h1>
+
+<div class="loader" *ngIf="loading == 'show'">
+    <img src="assets/imagenes/loader.gif" alt="">
+</div>
+
+<div class="col-md-12">
+    <div class="animales">
+
+        <div class="alert alert-danger" role="alert" *ngIf="animales && animales.length == 0">
+            <strong>No tienes animales en favoritos.</strong>
+            <a href="/animal-new" class="btn btn-primary">Dar en adopción</a>
+        </div>
+
+        <div class="alert alert-danger" role="alert" *ngIf="status == 'No hay animales'">
+            <strong>No tenemos animales con ese criterio de búsqueda.</strong>
+        </div>
+
+        <div class="alert alert-danger" role="alert" *ngIf="status == 'error'">
+            <strong>¡ Error en la búsqueda !</strong>
+        </div>
+
+
+        <div id="contenedor">
+            <figure class="image-block" *ngFor="let animal of animales" class="animal-item">
+                <img src="/assets/imagenes/animales/{{animal.imagenes[0].imagen}}" alt="" />
+                <figcaption>
+                    <h3>
+                        Me llamo {{animal.nombre}}
+                    </h3>
+                    <p>¿Te gustaría saber más sobre mi?</p>
+                    <button>
+			        <a style="text-decoration:none;color:rgb(61, 62, 64);" [routerLink]="['animal-adoptar', animal.id]">¡Conóceme!</a>
+		            </button>
+                </figcaption>
+            </figure>
+        </div>
+
+        <ul style="margin-left:50%" class="pagination" id="contenedorPag" *ngIf="animales && animales.length >= 1">
+            <li id="pag">
+                <a [routerLink]="['/user/index', pagePrev]" aria-label="Previous">
+                    <img style src="/assets/imagenes/rotate.png">
+                </a>
+            </li>
+
+            <li *ngFor="let page of pagesTotal">
+                <a style="text-decoration:none;color:rgb(61, 62, 64);padding:5px; font-size:20px;" [routerLink]="['/user/index', page+1]">{{page+1}}</a>
+            </li>
+
+            <li id="pag">
+                <a [routerLink]="['/user/index', pageNext]" aria-label="Next">
+                    <img src="/assets/imagenes/flecha-correcta.png">
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<footer style="background-color: rgb(101, 91, 91);
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+  color: white;
+  text-align:center;">
+    <p>Copyright &copy; 2022 Apipet, todos los derechos reservados.</p>
+</footer>

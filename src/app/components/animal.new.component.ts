@@ -42,7 +42,14 @@ export class AnimalNewComponent implements OnInit {
     }
 
     enviarDatos(){
-        this._animalService.create(this.token, this.animal).subscribe(
+        let fotos = document.getElementById("fotos") as HTMLInputElement;
+        let fotosArray:any = fotos.files;
+        let imagenes = [];
+        for(let i = 0; i < fotosArray.length; i++){
+            imagenes.push(fotosArray[i].name);
+        }
+        
+        this._animalService.create(this.token, this.animal, imagenes).subscribe(
             response => {
                 this.status = response;
                 if(this.status.status != "error"){

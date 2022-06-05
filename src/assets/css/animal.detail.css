@@ -71,3 +71,14 @@ button:hover {
 button:active {
     transform: translateY(-1px);
 }
+
+#fotos {
+    width: 200px;
+    height: 200px;
+}
+
+#fotos:hover {
+    width: 230px;
+    height: 230px;
+    border-radius: 50%;
+}

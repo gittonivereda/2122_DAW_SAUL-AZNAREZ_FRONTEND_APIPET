@@ -20,12 +20,12 @@ export class AnimalService {
         this.url = GLOBAL.url;
     }
 
-    create(token:any, animal:any) {
+    create(token:any, animal:any, imagenes:any) {
         let json = JSON.stringify(animal);
         let params = "json=" + json + "&authorization=" + token;
         let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
 
-        return this.http.post(this.url + '/animal/new', params, {headers: headers})
+        return this.http.post(this.url + '/animal/new/' + imagenes, params, {headers: headers})
             .pipe(map(res => res));
     }
 
@@ -96,6 +96,28 @@ export class AnimalService {
 
         return this.http.post(this.url + '/animal/search/' + tipo +  '/' + provincia + '/' + nombre + '/' + page, params, {headers: headers})
             .pipe(map(res => res));
+    }
 
+    //Obtenemos los animales favoritos del usuario
+    getFavoritos(token:any, email:any, page:any) {
+
+        let params = "authorization=" + token;
+        let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+
+        if(page == null){
+            page = 1;
+        }
+
+        return this.http.post(this.url + '/user/getFavoritos/' + email +  '?page=' + page, params, {headers: headers})
+            .pipe(map(res => res));
+    }
+
+    //Enviamos los datos para adoptar del animal y el usuario
+    adoptar(token:any, animalId:any, email:any){
+        let params = "authorization=" + token;
+        let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+
+        return this.http.post(this.url + '/user/adoptar/' + animalId +  "/" + email, params, {headers: headers})
+            .pipe(map(res => res));
     }
 }

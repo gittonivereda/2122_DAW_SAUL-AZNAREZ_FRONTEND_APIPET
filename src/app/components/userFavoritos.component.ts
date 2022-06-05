@@ -5,22 +5,22 @@ import { AnimalService } from "../services/animal.services";
 import { Animal } from '../models/animal';
 
 @Component({
-    selector: "user",
-    templateUrl: "../views/animalesUser.html",
+    selector: "userFavoritos",
+    templateUrl: "../views/userFavoritos.html",
     providers: [UserService, AnimalService]
 })
 
-export class AnimalesUserComponent implements OnInit {
+export class UserFavoritosComponent implements OnInit {
     public title: string;
-    public user: any;
+    public animal: any;
     public token: any;
     public identity: any;
-    public animales: Array<any> | undefined;
     public status: any;
+    public loading: any;
+    public animales: Array<any> | undefined;
     public pagesTotal: any;
     public pageNext: any;
     public pagePrev: any;
-    public loading: any;
 
     constructor(
         private _route: ActivatedRoute,
@@ -28,20 +28,15 @@ export class AnimalesUserComponent implements OnInit {
         private _userService: UserService,
         private _animalService: AnimalService
     ) {
-        this.title = "Tus animales";
+        this.title = "Tus favoritos";
         this.identity = this._userService.getIdentity();
         this.token = this._userService.getToken();
-        this.user = {
-            "email": "",
-            "password": "",
-            "getHash": "true"
-        };
     }
 
     ngOnInit() {
-        console.log("Login cargado");
+        console.log("Favoritos cargado");
         this.redirectIfIdentity();
-        this.getAnimalUser();
+        this.getFavoritos();
     }
 
     redirectIfIdentity(){
@@ -52,7 +47,7 @@ export class AnimalesUserComponent implements OnInit {
         }
     }
 
-    getAnimalUser(){
+    getFavoritos(){
         this._route.params.forEach((params: Params) => {
             let page = +params['page'];
 
@@ -62,7 +57,7 @@ export class AnimalesUserComponent implements OnInit {
 
             this.loading = "show";
 
-            this._animalService.animalesUsuario(this.token, page).subscribe(
+            this._animalService.getFavoritos(this.token, this.identity.email, page).subscribe(
                 response => {
                     this.status = response;
                     if(this.status.status == "success"){
@@ -94,5 +89,22 @@ export class AnimalesUserComponent implements OnInit {
                 }
             );
         });
+    }
+    
+    favorito(){
+            this._userService.newFavoritos(this.identity.email, this.animal.id).subscribe(
+                response => {
+                    this.status = response;
+                    if(this.status.msg == "El animal ya esta en favoritos"){
+                        this.status = "El animal ya esta en favoritos";
+                    }if(this.status == "error"){
+                        this.status = "success";
+                    }
+                },
+                error => {
+                    this.status = "error";
+                    console.log(<any>error);
+                }
+            );
     }
 }

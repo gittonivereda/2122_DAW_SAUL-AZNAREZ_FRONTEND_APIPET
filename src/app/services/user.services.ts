@@ -18,6 +18,7 @@ export class UserService {
         this.url = GLOBAL.url;
     }
 
+    //Enviamos peticion para hacer el login
     signup(user_to_login: any, gethash = null) {
         let json = JSON.stringify(user_to_login);
         let params = "json=" + json + "&gethash=" + gethash;
@@ -27,6 +28,7 @@ export class UserService {
             .pipe(map(res => res));
     }
 
+    //Obtenemos la identidad del localStorage
     getIdentity() {
         let identity = localStorage.getItem("identity");
 
@@ -40,6 +42,7 @@ export class UserService {
         return this.identity;
     }
 
+    //Obtenemos el token del localStorage
     getToken() {
         let token = localStorage.getItem("token")?.replace(/['"]+/g, '');
 
@@ -52,6 +55,7 @@ export class UserService {
         return this.token;
     }
 
+    //Registramos un usuario
     register(user_to_register: any, gethash = null) {
         let json = JSON.stringify(user_to_register);
         let params = "json=" + json + "&gethash=" + gethash;
@@ -61,6 +65,7 @@ console.log(params);
             .pipe(map(res => res));
     }
 
+    //Actualizamos el usuario
     update(user_to_update: any) {
         let json = JSON.stringify(user_to_update);
         let params = "json=" + json + "&authorization=" + this.getToken();
@@ -98,11 +103,40 @@ console.log(params);
         return this.http.post(this.url + '/user/newIntereses', params, {headers: headers})
             .pipe(map(res => res));
     }
+
+    //Eliminamos los intereses del usuario
     eliminarIntereses(emailUser:any){
         let params = "authorization=" + this.getToken();
         let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
 
         return this.http.post(this.url + '/user/eliminarIntereses/' + emailUser, params, {headers: headers})
+            .pipe(map(res => res));
+    }
+
+    //Añadimos un animal favorito a un usuario
+    newFavoritos(email:any, id:any) {
+        let params = "authorization=" + this.getToken();
+        let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+
+        return this.http.post(this.url + '/user/favoritos/' + email + "/" + id , params, {headers: headers})
+            .pipe(map(res => res));
+    }
+
+    //Eliminamos un animal del usuario
+    eliminarAnimal(email:any, id:any) {
+        let params = "authorization=" + this.getToken();
+        let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+
+        return this.http.post(this.url + '/user/eliminarAnimal/' + email + "/" + id , params, {headers: headers})
+            .pipe(map(res => res));
+    }
+
+    //Eliminamos el animal de la lista de favoritos del usuario
+    eliminarFavorito(email:any, id:any) {
+        let params = "authorization=" + this.getToken();
+        let headers = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded'});
+
+        return this.http.post(this.url + '/user/eliminarFavorito/' + email + "/" + id , params, {headers: headers})
             .pipe(map(res => res));
     }
 }

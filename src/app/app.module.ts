@@ -21,6 +21,7 @@ import { UserComponent } from './components/user.component';
 import { AnimalAdoptarComponent } from './components/animal.adoptar.component';
 import {UserInteresesComponent} from './components/user.intereses.component';
 import {UserInteresesMenuComponent} from './components/user.interesesMenu.component';
+import { UserFavoritosComponent } from './components/userFavoritos.component';
 
 //import { routing, appRoutingProviders } from './app-routing.module';
 
@@ -38,7 +39,8 @@ import {UserInteresesMenuComponent} from './components/user.interesesMenu.compon
     UserComponent,
     AnimalAdoptarComponent,
     UserInteresesComponent,
-    UserInteresesMenuComponent
+    UserInteresesMenuComponent,
+    UserFavoritosComponent
   ],
   imports: [
     BrowserModule,

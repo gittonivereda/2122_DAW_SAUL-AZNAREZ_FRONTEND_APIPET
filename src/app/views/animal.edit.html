@@ -1,23 +1,24 @@
 <link href="/assets/css/animal.detail.css" rel="stylesheet">
-
+<link href="/assets/css/navbar.css" rel="stylesheet">
 <div class="col-md-12">
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-info ">
-        <a class="navbar-brand" href="#">Navbar</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+    <nav class="navbar navbar-expand-lg navbar-light ">
+        <a class="navbar-brand" href="/user"> <img id="logo" src="/assets/imagenes/logo.png" alt=""> </a>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item active"><a class="nav-link" href="/user">Home<span class="sr-only">(current)</span></a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Favoritos</a></li>
+                <li class="nav-item"><a class="nav-link" href="/userFavoritos">Favoritos</a></li>
                 <li class="nav-item"><a class="nav-link" href="/animal-new">Dar en adopción</a></li>
                 <li class="nav-item"><a class="nav-link" href="animalesUser">Mis animales</a></li>
                 <li class="nav-item"><a class="nav-link" href="/userInteresesMenu">Mis intereses</a></li>
                 <li class="nav-item"><a class="nav-link" href="/user-edit">Editar perfil</a></li>
                 <li class="nav-item"><a class="nav-link" href="/login/1">Salir</a></li>
             </ul>
+
         </div>
     </nav>
 
-    <h1>{{title}}</h1>
+    <h1><span>E</span><span>D</span><span>I</span><span>T</span><span>A</span><span>R</span></h1>
 
     <div class="loader" *ngIf="loading == 'show'">
         <img src="assets/imagenes/loader.gif" alt="">
@@ -35,3 +36,13 @@
         <h5>en {{animal.localidad}}.</h5>
         <h6>Te cuento un poco sobre mi: {{animal.descripcion}}</h6>
     </div>
+
+    <footer style="background-color: rgb(101, 91, 91);
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+  color: white;
+  text-align:center;">
+        <p>Copyright &copy; 2022 Apipet, todos los derechos reservados.</p>
+    </footer>

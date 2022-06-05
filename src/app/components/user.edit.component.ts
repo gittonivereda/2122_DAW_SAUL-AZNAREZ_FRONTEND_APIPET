@@ -156,10 +156,10 @@ export class UserEditComponent implements OnInit {
                 this.status = response;
                 if(this.status.status != "error"){
                   //convertimos la imagen a base64 para mostrarla en el html
-                    this.imagen = this.status.data.imagen;
-                    this.imagen = this.imagen.replace(/^data:image\/[a-z]+;base64,/, "");
-                    this.imagen = this.imagen.replace(/\+/g, '-');
-                    this.user.imagen = this.imagen;
+                    // this.imagen = this.status.data.imagen;
+                    // this.imagen = this.imagen.replace(/^data:image\/[a-z]+;base64,/, "");
+                    // this.imagen = this.imagen.replace(/\+/g, '-');
+                    this.user.imagen = this.status.data.imagen;
                     console.log("imagen"+this.user.imagen);
                 }else{
                     this.status = "error";

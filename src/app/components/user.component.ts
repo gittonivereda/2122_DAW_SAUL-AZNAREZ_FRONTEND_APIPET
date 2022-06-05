@@ -14,7 +14,8 @@ export class UserComponent implements OnInit {
     public title: string;
     public token: any;
     public identity: any;
-    public animales: Array<Animal> = [];
+    public animales: Array<any> = [];
+    public imagenes: Array<any> = [];
     public status: any;
     public pagesTotal: any;
     public pageNext: any;
@@ -66,6 +67,7 @@ export class UserComponent implements OnInit {
             this._animalService.getAnimales(this.token, page).subscribe(
                 response => {
                     this.status = response;
+                    console.log(this.status);
                     if (this.status.status == "success") {
                         this.animales = this.status.data;
                         this.loading = "hide";
@@ -123,6 +125,7 @@ export class UserComponent implements OnInit {
             this._animalService.searchAnimal(this.token, this.tipo, this.provincia, this.searchString, page).subscribe(
             response => {
                 this.status = response;
+                console.log(this.status);
                 if (this.status.status == "success") {
                     this.animales = this.status.data;
                         this.loading = "hide";
@@ -180,21 +183,4 @@ export class UserComponent implements OnInit {
                 }
             ); 
     }
-
-    // todosAnimales() {
-
-    //     this._animalService.todosAnimales(this.token).subscribe(
-    //         response => {
-    //             this.status = response;
-    //             if (this.status.status == "success") {
-    //                 let datos = this.status;
-    //                 this.tipos = datos.tipos;
-    //                 this.provincias = datos.provincias;
-    //                 this.allAnimals = datos.data;
-    //             }
-    //         }, error => {
-    //             console.log(<any>error);
-    //         }
-    //     );
-    // }
 }

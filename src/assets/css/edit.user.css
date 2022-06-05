@@ -104,3 +104,14 @@ button:hover {
 button:active span::before {
     background: #276ccd;
 }
+
+#fotoPerfil {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-left: 40%;
+}

@@ -17,6 +17,9 @@ export class AnimalAdoptarComponent implements OnInit {
     public identity: any;
     public status: any;
     public loading: any;
+    public animalesFavoritos: Array<any> = [];
+    public favoritoONo: boolean = false;
+    public mensaje: any;
 
     constructor(
         private _route: ActivatedRoute,
@@ -45,6 +48,7 @@ export class AnimalAdoptarComponent implements OnInit {
     }
 
     getAnimal(){
+        let page: number | null = null
         this.loading = "show";
         this._route.params.forEach((params: Params) => {
             let id = params["id"];
@@ -56,6 +60,30 @@ export class AnimalAdoptarComponent implements OnInit {
                         this.loading = "hide";
                         this.animal = this.status.animal;
                         this.status = "success";
+
+                        this._animalService.getFavoritos(this.token, this.identity.email, page).subscribe(
+                            response => {
+                                this.status = response;
+                                if(this.status.status == "success"){
+                                    this.animalesFavoritos = this.status.data;
+
+                                    if(this.animalesFavoritos.length <= 0){
+                                        this.favoritoONo = false;
+                                    }else{
+                                        for(let i = 0; i < this.animalesFavoritos.length; i++){
+                                            if(this.animal.id == this.animalesFavoritos[i].id){
+                                                this.favoritoONo = true;
+                                            }
+                                        }
+                                    }
+                                    this.loading = "hide";
+                                }
+                            }, error => {
+                                console.log(<any>error);
+                            }
+                        );
+
+
                     }else{
                         this.status = "error";
                     }
@@ -69,7 +97,59 @@ export class AnimalAdoptarComponent implements OnInit {
             );
         });
     }
+    
     favorito(){
-        alert("intereses");
+
+            this._userService.newFavoritos(this.identity.email, this.animal.id).subscribe(
+                response => {
+                    this.status = response;
+                    window.location.reload();
+                    if(this.status.msg == "El animal ya esta en favoritos"){
+                        
+                        this.status = "El animal ya esta en favoritos";
+                        
+                    }
+                    if(this.status == "error"){
+                        this.status = "success";
+                    }
+                },
+                error => {
+                    this.status = "error";
+                    console.log(<any>error);
+                }
+            );
+    }
+
+    eliminarFavorito(){
+        this._userService.eliminarFavorito(this.identity.email, this.animal.id).subscribe(
+            response => {
+                this.status = response;
+                if(this.status.msg == "Animal eliminado de favoritos"){
+                    this.status = "Animal eliminado de favoritos";
+                    window.location.reload();
+                }if(this.status == "error"){
+                    this.status = "success";
+                }
+            },
+            error => {
+                this.status = "error";
+                console.log(<any>error);
+            }
+        );
+    }
+
+    adoptar(){
+        this._animalService.adoptar(this.token, this.animal.id, this.identity.email).subscribe(
+            response => {
+                this.status = response;
+                
+                    this.mensaje = response;
+                
+            },
+            error => {
+                this.status = "error";
+                console.log(<any>error);
+            }
+        );
     }
 }

@@ -55,6 +55,7 @@ export class AnimalDetailComponent implements OnInit {
                     if(this.status.status == "success"){
                         this.loading = "hide";
                         this.animal = this.status.animal;
+                        console.log(this.animal);
                         if(this.animal.userId != this.identity.sub){
                             this._router.navigate(["/user"]);
                         }else{
@@ -72,5 +73,22 @@ export class AnimalDetailComponent implements OnInit {
                 }
             );
         });
+    }
+
+    eliminarAnimal(){
+        this._userService.eliminarAnimal(this.identity.email, this.animal.id).subscribe(
+            response => {
+                this.status = response;
+                if(this.status.msg == "Animal eliminado correctamente"){
+                    this.status = "Animal eliminado correctamente";
+                }else{
+                    this.status = "error";
+                }
+            },
+            error => {
+                this.status = "error";
+                console.log(<any>error);
+            }
+        );
     }
 }
